@@ -1,0 +1,22 @@
+{% extends 'SonataBlockBundle:Block:block_base.html.twig' %}
+
+{% block block %}
+    {% if settings.format %}
+        {% if settings.title %}
+            <h3>{{ settings.title }}</h3>
+        {% endif %}
+        <div id="gallery{{ block.id }}" class="clearfix gallery">
+            {% if elements is defined and elements | length != 0 %}
+            <ul>
+                {% for element in elements %}
+                    <li>
+                        <a rel="gallery{{ block.id }}" href="{% path element.media, 'big' %}" title="{{ 'media.show_zoom' |trans }}" style="background-image:url({% path element.media, 'small' %});">
+                            {{ element.media.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

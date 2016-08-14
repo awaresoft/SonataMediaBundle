@@ -1,0 +1,17 @@
+{% block sonata_media_type_widget %}
+    <div>
+        {% if value is not empty and value.providerReference %}
+            <div>
+                {% thumbnail value, 'admin' with {'class': 'img-polaroid media-object'} %}
+            </div>
+        {% else %}
+            <div>
+                <img src="{{ asset('bundles/sonatamedia/grey.png') }}" class="img-polaroid media-object" style="width: 120px; height: 120px"/>
+            </div>
+        {% endif %}
+        <br />
+    </div>
+    <div>
+        {{ block('form_widget') }}
+    </div>
+{% endblock sonata_media_type_widget %}

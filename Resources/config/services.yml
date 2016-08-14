@@ -1,0 +1,23 @@
+services:
+    awaresoft.media.provider.svg:
+        class: Awaresoft\Sonata\MediaBundle\Provider\SVGProvider
+        tags:
+            - { name: sonata.media.provider, label: SVG }
+        arguments:
+            - awaresoft.media.provider.svg
+            - "@sonata.media.filesystem.local"
+            - "@sonata.media.cdn.server"
+            - "@sonata.media.generator.default"
+            - "@sonata.media.thumbnail.format"
+            - ['svg']
+            - ['image/svg+xml']
+        calls:
+            - [addTemplate, [helper_view, AwaresoftSonataMediaBundle:Provider:view_svg.html.twig]]
+            - [addTemplate, [helper_thumbnail, AwaresoftSonataMediaBundle:Provider:thumbnail.html.twig]]
+
+    awaresoft.media.resizer.image:
+        class: Awaresoft\Sonata\MediaBundle\Resizer\ImageResizer
+        arguments:
+            - "@service_container"
+            - "%sonata.media.resizer.simple.adapter.mode%"
+            - "@sonata.media.metadata.proxy"

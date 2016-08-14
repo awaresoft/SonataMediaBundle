@@ -1,0 +1,25 @@
+awaresoft.media.provider.svg: SVG
+choose_image: Wybierz zdjęcie (jpg/png)
+
+breadcrumb:
+    link_media_show: Wyświetl media
+form:
+    label_media: Media
+    label_position: Pozycja
+label:
+    length: Długość
+list:
+    label_name: Nazwa
+    label_context: Kontekst
+    label_default_format: Domyślny format
+    label_description: Opis
+    label_size: Rozmiar
+no_linked_media: Brak media
+sonata_media_gallery_index: Galeria
+sonata.media.block.media: Media
+widget_headline_information: Informacje o pliku
+widget_label_type: Typ
+widget_label_context: Kontekst
+widget_label_unlink: Usuń
+link_media: Plik
+form.label_category: Kategoria

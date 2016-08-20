@@ -1,5 +1,5 @@
 {
-    "name": "awaresoft/SonataMediaBundle",
+    "name": "awaresoft/sonata-media-bundle",
     "type": "symfony-bundle",
     "description": "Symfony Awaresoft SonataMediaBundle",
     "require": {

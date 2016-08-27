@@ -2,18 +2,27 @@
 
 namespace Awaresoft\Sonata\MediaBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 use Sonata\MediaBundle\Entity\BaseMedia as BaseMedia;
 
 /**
- * Gallery entity class
+ * Media entity entity
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="media__media")
  *
  * @author Bartosz Malec <b.malec@awaresoft.pl>
  */
 class Media extends BaseMedia
 {
-
     /**
-     * @var integer $id
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @var int
      */
     protected $id;
 

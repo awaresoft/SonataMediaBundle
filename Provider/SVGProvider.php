@@ -40,7 +40,7 @@ class SVGProvider extends FileProvider
     public function buildCreateForm(FormMapper $formMapper)
     {
         $formMapper->add('binaryContent', 'file', array(
-            'label' => 'Upload SVG file only',
+            'label' => 'Upload SVG file',
             'constraints' => array(
                 new NotBlank(),
                 new NotNull(),

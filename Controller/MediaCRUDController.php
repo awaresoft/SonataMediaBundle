@@ -57,15 +57,18 @@ class MediaCRUDController extends BaseMediaAdminController
             $relationTypes = [
                 new PageBlockType($this->container, $object, 'sonata.media.block.media', 'mediaId'),
                 new PageBlockType($this->container, $object, 'sonata.media.block.feature_media', 'mediaId'),
-                new EntityObjectType($this->container, $object, 'Awaresoft\Sonata\NewsBundle\Entity\Post', 'banner', 'admin_sonata_news_post_edit'),
-                new EntityObjectType($this->container, $object, 'Awaresoft\Sonata\NewsBundle\Entity\Post', 'image', 'admin_sonata_news_post_edit'),
+                new EntityObjectType($this->container, $object, 'Awaresoft\Sonata\MediaBundle\Entity\GalleryHasMedia', 'media', 'admin_sonata_media_galleryhasmedia_edit'),
             ];
 
-            if (class_exists($class = 'Awaresoft\BannerBundle\Entity\Banner')) {
+            if (class_exists($class = 'Awaresoft\Sonata\NewsBundle\Entity\Post')) {
+                $relationTypes[] = new EntityObjectType($this->container, $object, 'Awaresoft\Sonata\NewsBundle\Entity\Post', 'banner', 'admin_sonata_news_post_edit');
+                $relationTypes[] = new EntityObjectType($this->container, $object, 'Awaresoft\Sonata\NewsBundle\Entity\Post', 'image', 'admin_sonata_news_post_edit');
+            }
+            if (class_exists($class = 'Application\BannerBundle\Entity\Banner')) {
                 $relationTypes[] = new EntityObjectType($this->container, $object, $class, 'media', 'admin_awaresoft_banner_banner_edit');
             }
 
-            if (class_exists($class = 'Awaresoft\FileBundle\Entity\File')) {
+            if (class_exists($class = 'Application\FileBundle\Entity\File')) {
                 $relationTypes[] = new EntityObjectType($this->container, $object, $class, 'media', 'admin_awaresoft_file_file_edit');
                 $relationTypes[] = new EntityObjectType($this->container, $object, $class, 'thumbnail', 'admin_awaresoft_file_file_edit');
             }

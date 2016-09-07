@@ -2,11 +2,11 @@
     <div>
         {% if value is not empty and value.providerReference %}
             <div>
-                {% thumbnail value, 'admin' with {'class': 'img-polaroid media-object'} %}
+                {% media value, 'admin' with {'class': 'media-object'} %}
             </div>
         {% else %}
             <div>
-                <img src="{{ asset('bundles/sonatamedia/grey.png') }}" class="img-polaroid media-object" style="width: 120px; height: 120px"/>
+                <img src="{{ asset('bundles/sonatamedia/grey.png') }}" class="media-object" style="width: 120px; height: 120px"/>
             </div>
         {% endif %}
         <br />

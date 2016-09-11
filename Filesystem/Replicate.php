@@ -43,7 +43,7 @@ class Replicate extends BaseReplicate
             $ok = false;
         }
 
-        if ($this->master === $this->slave || $this->strpos($key, 'thumb') !== false) {
+        if ($this->master === $this->slave || strpos($key, 'thumb') !== false) {
             return $ok;
         }
 

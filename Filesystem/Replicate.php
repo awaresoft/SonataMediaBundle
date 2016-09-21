@@ -43,9 +43,9 @@ class Replicate extends BaseReplicate
             $ok = false;
         }
 
-        if ($this->master === $this->slave || strpos($key, 'thumb') !== false) {
+        /*if ($this->master === $this->slave || strpos($key, 'thumb') !== false) {
             return $ok;
-        }
+        }*/
 
         try {
             $this->master->delete($key);
@@ -78,9 +78,9 @@ class Replicate extends BaseReplicate
             $ok = false;
         }
 
-        if ($this->master === $this->slave || strpos($key, 'thumb') !== false) {
+        /*if ($this->master === $this->slave || strpos($key, 'thumb') !== false) {
             return $ok;
-        }
+        }*/
 
         try {
             $return = $this->slave->write($key, $content, $metadata);
@@ -112,9 +112,9 @@ class Replicate extends BaseReplicate
             $ok = false;
         }
 
-        if ($this->master === $this->slave || strpos($key, 'thumb') !== false) {
+        /*if ($this->master === $this->slave || strpos($key, 'thumb') !== false) {
             return $ok;
-        }
+        }*/
 
         try {
             $this->slave->rename($key, $new);

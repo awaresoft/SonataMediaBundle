@@ -1,8 +1,0 @@
-services:
-    sonata.media.adapter.filesystem.replicate:
-        class: Awaresoft\Sonata\MediaBundle\Filesystem\Replicate
-        arguments:
-            - "%sonata.media.filesystem.replicate.master%"
-            - "%sonata.media.filesystem.replicate.slave%"
-            - "@service_container"
-            - "@logger"

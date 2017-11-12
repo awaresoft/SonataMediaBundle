@@ -1,36 +1,8 @@
+parameters:
+    sonata.media.admin.media.controller: AwaresoftSonataMediaBundle:MediaCRUD
+    sonata.media.admin.gallery.controller: AwaresoftSonataMediaBundle:GalleryCRUD
+
 services:
-    sonata.media.admin.media:
-        class: "%sonata.media.admin.media.class%"
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: sonata_media, label_catalogue: "%sonata.media.admin.media.translation_domain%", label: media, label_translator_strategy: sonata.admin.label.strategy.underscore}
-        arguments:
-            - ~
-            - "%sonata.media.admin.media.entity%"
-            - AwaresoftSonataMediaBundle:MediaCRUD
-            - "@sonata.media.pool"
-            - "@sonata.classification.manager.category"
-        calls:
-            - [setModelManager, ["@sonata.media.admin.media.manager"]]
-            - [setTranslationDomain, ["%sonata.media.admin.media.translation_domain%"]]
-            - [setTemplate, [inner_list_row, SonataMediaBundle:MediaAdmin:inner_row_media.html.twig]]
-            - [setTemplate, [outer_list_rows_mosaic, SonataMediaBundle:MediaAdmin:list_outer_rows_mosaic.html.twig]]
-            - [setTemplate, [base_list_field, SonataAdminBundle:CRUD:base_list_flat_field.html.twig]]
-            - [setTemplate, [list, SonataMediaBundle:MediaAdmin:list.html.twig]]
-            - [setTemplate, [edit, SonataMediaBundle:MediaAdmin:edit.html.twig]]
-
-    sonata.media.admin.gallery:
-        class: "%sonata.media.admin.gallery.class%"
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: sonata_media, label_catalogue: "%sonata.media.admin.media.translation_domain%", label: gallery, label_translator_strategy: sonata.admin.label.strategy.underscore}
-        arguments:
-            - ~
-            - "%sonata.media.admin.gallery.entity%"
-            - AwaresoftSonataMediaBundle:GalleryCRUD
-            - "@sonata.media.pool"
-        calls:
-            - [setTranslationDomain, ["%sonata.media.admin.media.translation_domain%"]]
-            - [setTemplate, [list, SonataMediaBundle:GalleryAdmin:list.html.twig]]
-
     awaresoft.media.admin.media.extension:
         class: Awaresoft\Sonata\MediaBundle\Admin\Extension\MediaAdminExtension
         tags:

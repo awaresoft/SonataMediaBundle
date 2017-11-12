@@ -131,5 +131,4 @@ class LoadMediaDevData extends AwaresoftAbstractFixture
     {
         return $this->container->get('sonata.media.manager.gallery');
     }
-
 }

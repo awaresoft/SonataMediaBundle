@@ -23,7 +23,13 @@ class GalleryCRUDController extends BaseGalleryAdminController
     {
         $message = $this->checkObjectHasRelations($object, $this->admin, [
             new PageBlockType($this->container, $object, 'sonata.media.block.gallery', 'galleryId'),
-            new EntityObjectType($this->container, $object, 'Awaresoft\Sonata\NewsBundle\Entity\Post', 'gallery', 'admin_sonata_news_post_edit'),
+            new EntityObjectType(
+                $this->container,
+                $object,
+                'Awaresoft\Sonata\NewsBundle\Entity\Post',
+                'gallery',
+                'admin_sonata_news_post_edit'
+            ),
         ]);
 
         return $message;
@@ -40,7 +46,13 @@ class GalleryCRUDController extends BaseGalleryAdminController
             $object = $this->admin->getObject($id);
             $message .= $this->checkObjectHasRelations($object, $this->admin, [
                 new PageBlockType($this->container, $object, 'sonata.media.block.gallery', 'galleryId'),
-                new EntityObjectType($this->container, $object, 'Awaresoft\Sonata\NewsBundle\Entity\Post', 'gallery', 'admin_sonata_news_post_edit'),
+                new EntityObjectType(
+                    $this->container,
+                    $object,
+                    'Awaresoft\Sonata\NewsBundle\Entity\Post',
+                    'gallery',
+                    'admin_sonata_news_post_edit'
+                ),
             ]);
         }
 

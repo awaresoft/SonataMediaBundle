@@ -32,8 +32,8 @@ class ImageResizer implements ResizerInterface
     protected $metadata;
 
     /**
-     * @param ContainerInterface         $container
-     * @param string                   $mode
+     * @param ContainerInterface $container
+     * @param string $mode
      * @param MetadataBuilderInterface $metadata
      */
     public function __construct(ContainerInterface $container, $mode, MetadataBuilderInterface $metadata)
@@ -56,7 +56,11 @@ class ImageResizer implements ResizerInterface
         }
 
         if (!$settings['height'] && !$settings['width']) {
-            throw new \RuntimeException(sprintf('Width parameter or height is missing in context "%s" for provider "%s"', $media->getContext(), $media->getProviderName()));
+            throw new \RuntimeException(sprintf(
+                'Width parameter or height is missing in context "%s" for provider "%s"',
+                $media->getContext(),
+                $media->getProviderName()
+            ));
         }
 
         if ($settings['height'] != false && $settings['width'] != false) {
@@ -78,10 +82,15 @@ class ImageResizer implements ResizerInterface
                 $settings['height'] = (int)($settings['width'] * $size->getHeight() / $size->getWidth());
 
                 if ($settings['height'] < $size->getHeight() && $settings['width'] < $size->getWidth()) {
-                    $content = $image->thumbnail(new Box($settings['width'], $settings['height']), ImageInterface::THUMBNAIL_OUTBOUND)
-                        ->get($format, array('quality' => $settings['quality']));
+                    $content = $image->thumbnail(
+                        new Box(
+                            $settings['width'],
+                            $settings['height']
+                        ),
+                        ImageInterface::THUMBNAIL_OUTBOUND
+                    )->get($format, ['quality' => $settings['quality']]);
                 } else {
-                    $content = $image->get($format, array('quality' => $settings['quality']));
+                    $content = $image->get($format, ['quality' => $settings['quality']]);
                 }
 
                 $out->setContent($content, $this->metadata->get($media, $out->getName()));
@@ -91,7 +100,7 @@ class ImageResizer implements ResizerInterface
         }
 
         $content = $image->thumbnail($this->getBoxSimple($media, $settings), $this->mode)
-            ->get($format, array('quality' => $settings['quality']));
+            ->get($format, ['quality' => $settings['quality']]);
 
         $out->setContent($content, $this->metadata->get($media, $out->getName()));
     }
@@ -134,7 +143,13 @@ class ImageResizer implements ResizerInterface
         $size = $media->getBox();
 
         if ($settings['width'] == null && $settings['height'] == null) {
-            throw new \RuntimeException(sprintf('Width/Height parameter is missing in context "%s" for provider "%s". Please add at least one parameter.', $media->getContext(), $media->getProviderName()));
+            throw new \RuntimeException(
+                sprintf(
+                    'Width/Height parameter is missing in context "%s" for provider "%s". Please add at least one parameter.',
+                    $media->getContext(),
+                    $media->getProviderName()
+                )
+            );
         }
 
         if ($settings['height'] == null) {
@@ -149,25 +164,25 @@ class ImageResizer implements ResizerInterface
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *
      * @param MediaInterface $media
-     * @param array          $settings
+     * @param array $settings
      *
      * @return Box
      */
     private function computeBox(MediaInterface $media, array $settings)
     {
         if ($this->mode !== ImageInterface::THUMBNAIL_INSET && $this->mode !== ImageInterface::THUMBNAIL_OUTBOUND) {
-            throw new InvalidArgumentException('Invalid mode specified');
+            throw new \InvalidArgumentException('Invalid mode specified');
         }
 
         $size = $media->getBox();
 
-        $ratios = array(
+        $ratios = [
             $settings['width'] / $size->getWidth(),
             $settings['height'] / $size->getHeight(),
-        );
+        ];
 
         if ($this->mode === ImageInterface::THUMBNAIL_INSET) {
             $ratio = min($ratios);

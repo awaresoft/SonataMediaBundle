@@ -47,5 +47,4 @@ class SVGProvider extends FileProvider
             ),
         ));
     }
-
 }

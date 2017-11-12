@@ -25,5 +25,4 @@ class GalleryAdminExtension extends AbstractAdminExtension
             ->with($formMapper->getAdmin()->trans('Gallery'), array('class' => 'col-md-6 pull-right'))->end()
         ;
     }
-
 }

@@ -23,5 +23,4 @@ class MediaAdminExtension extends AbstractAdminExtension
         $formMapper->remove('copyright');
         $formMapper->remove('cdnIsFlushable');
     }
-
 }

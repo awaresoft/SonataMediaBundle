@@ -6,9 +6,6 @@ use Sonata\MediaBundle\Controller\MediaAdminController as BaseMediaAdminControll
 use Awaresoft\Sonata\AdminBundle\Reference\Type\EntityObjectType;
 use Awaresoft\Sonata\AdminBundle\Reference\Type\PageBlockType;
 use Awaresoft\Sonata\AdminBundle\Traits\ControllerHelperTrait;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class MediaCRUDController
@@ -24,20 +21,25 @@ class MediaCRUDController extends BaseMediaAdminController
      */
     public function preDeleteAction($object)
     {
+        $bundles = $this->get("kernel")->getBundles();
+
         $relationTypes = [
             new PageBlockType($this->container, $object, 'sonata.media.block.media', 'mediaId'),
             new PageBlockType($this->container, $object, 'sonata.media.block.feature_media', 'mediaId'),
-            new EntityObjectType($this->container, $object, 'Awaresoft\Sonata\NewsBundle\Entity\Post', 'banner', 'admin_sonata_news_post_edit'),
-            new EntityObjectType($this->container, $object, 'Awaresoft\Sonata\NewsBundle\Entity\Post', 'image', 'admin_sonata_news_post_edit'),
         ];
 
-        if (class_exists($class = 'Awaresoft\BannerBundle\Entity\Banner')) {
-            $relationTypes[] = new EntityObjectType($this->container, $object, $class, 'media', 'admin_awaresoft_banner_banner_edit');
+        if (array_key_exists('AwaresoftSonataNewsBundle', $bundles)) {
+            $relationTypes[] = new EntityObjectType($this->container, $object, 'Awaresoft\Sonata\NewsBundle\Entity\Post', 'banner', 'admin_sonata_news_post_edit');
+            $relationTypes[] = new EntityObjectType($this->container, $object, 'Awaresoft\Sonata\NewsBundle\Entity\Post', 'image', 'admin_sonata_news_post_edit');
         }
 
-        if (class_exists($class = 'Awaresoft\FileBundle\Entity\File')) {
-            $relationTypes[] = new EntityObjectType($this->container, $object, $class, 'media', 'admin_awaresoft_file_file_edit');
-            $relationTypes[] = new EntityObjectType($this->container, $object, $class, 'thumbnail', 'admin_awaresoft_file_file_edit');
+        if (array_key_exists('AwaresoftBannerBundle', $bundles)) {
+            $relationTypes[] = new EntityObjectType($this->container, $object, 'Awaresoft\BannerBundle\Entity\Banner', 'media', 'admin_awaresoft_banner_banner_edit');
+        }
+
+        if (array_key_exists('AwaresoftFileBundle', $bundles)) {
+            $relationTypes[] = new EntityObjectType($this->container, $object, 'Awaresoft\FileBundle\Entity\File', 'media', 'admin_awaresoft_file_file_edit');
+            $relationTypes[] = new EntityObjectType($this->container, $object, 'Awaresoft\FileBundle\Entity\File', 'thumbnail', 'admin_awaresoft_file_file_edit');
         }
 
         $message = $this->checkObjectHasRelations($object, $this->admin, $relationTypes);
@@ -51,6 +53,7 @@ class MediaCRUDController extends BaseMediaAdminController
     public function batchActionDeleteIsRelevant(array $idx)
     {
         $message = null;
+        $bundles = $this->get("kernel")->getBundles();
 
         foreach ($idx as $id) {
             $object = $this->admin->getObject($id);
@@ -60,17 +63,18 @@ class MediaCRUDController extends BaseMediaAdminController
                 new EntityObjectType($this->container, $object, 'Awaresoft\Sonata\MediaBundle\Entity\GalleryHasMedia', 'media', 'admin_sonata_media_galleryhasmedia_edit'),
             ];
 
-            if (class_exists($class = 'Awaresoft\Sonata\NewsBundle\Entity\Post')) {
+            if (array_key_exists('AwaresoftSonataNewsBundle', $bundles)) {
                 $relationTypes[] = new EntityObjectType($this->container, $object, 'Awaresoft\Sonata\NewsBundle\Entity\Post', 'banner', 'admin_sonata_news_post_edit');
                 $relationTypes[] = new EntityObjectType($this->container, $object, 'Awaresoft\Sonata\NewsBundle\Entity\Post', 'image', 'admin_sonata_news_post_edit');
             }
-            if (class_exists($class = 'Application\BannerBundle\Entity\Banner')) {
-                $relationTypes[] = new EntityObjectType($this->container, $object, $class, 'media', 'admin_awaresoft_banner_banner_edit');
+
+            if (array_key_exists('AwaresoftBannerBundle', $bundles)) {
+                $relationTypes[] = new EntityObjectType($this->container, $object, 'Application\BannerBundle\Entity\Banner', 'media', 'admin_awaresoft_banner_banner_edit');
             }
 
-            if (class_exists($class = 'Application\FileBundle\Entity\File')) {
-                $relationTypes[] = new EntityObjectType($this->container, $object, $class, 'media', 'admin_awaresoft_file_file_edit');
-                $relationTypes[] = new EntityObjectType($this->container, $object, $class, 'thumbnail', 'admin_awaresoft_file_file_edit');
+            if (array_key_exists('AwaresoftFileBundle', $bundles)) {
+                $relationTypes[] = new EntityObjectType($this->container, $object, 'Application\FileBundle\Entity\File', 'media', 'admin_awaresoft_file_file_edit');
+                $relationTypes[] = new EntityObjectType($this->container, $object, 'Application\FileBundle\Entity\File', 'thumbnail', 'admin_awaresoft_file_file_edit');
             }
 
             $message .= $this->checkObjectHasRelations($object, $this->admin, $relationTypes);

@@ -2,10 +2,10 @@
 
 namespace Awaresoft\Sonata\MediaBundle\DataFixtures\ORM;
 
-use Awaresoft\Doctrine\Common\DataFixtures\AbstractFixture as AwaresoftAbstractFixture;
+use Awaresoft\DoctrineBundle\DataFixtures\AbstractFixture;
 use Sonata\MediaBundle\Model\GalleryInterface;
 use Sonata\MediaBundle\Model\MediaInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -13,8 +13,16 @@ use Symfony\Component\Finder\Finder;
  *
  * @author Bartosz Malec <b.malec@awaresoft.pl>
  */
-class LoadMediaDevData extends AwaresoftAbstractFixture
+class LoadMediaDevData extends AbstractFixture
 {
+    /**
+     * {@inheritDoc}
+     */
+    public static function getGroups(): array
+    {
+        return ['dev'];
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -23,20 +31,12 @@ class LoadMediaDevData extends AwaresoftAbstractFixture
         return 9;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getEnvironments()
-    {
-        return array('dev');
-    }
-
-    public function doLoad(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $gallery = $this->getGalleryManager()->create();
 
         $manager = $this->getMediaManager();
-        $faker = $this->getFaker();
+        $faker = $this->getFakerGenerator();
 
         $canada = Finder::create()->name('IMG_3587*.jpg')->in(__DIR__ . '/../data/files/gilles-canada');
         $paris = Finder::create()->name('IMG_3008*.jpg')->in(__DIR__ . '/../data/files/hugo-paris');

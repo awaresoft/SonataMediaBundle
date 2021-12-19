@@ -1,0 +1,5 @@
+services:
+    Awaresoft\Sonata\MediaBundle\DataFixtures\ORM\LoadMediaDevData:
+        tags: ['doctrine.fixture.orm']
+        calls:
+            - [ setFakerGenerator, ['@faker.generator']]

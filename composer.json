@@ -3,12 +3,14 @@
     "type": "symfony-bundle",
     "description": "Symfony Awaresoft SonataMediaBundle",
     "require": {
-        "php": ">= 7",
-        "symfony/symfony": "3.*"
+        "php": ">= 7.4",
+        "symfony/symfony": ">= 4.4"
     },
     "autoload": {
         "psr-4": {
-            "Awaresoft\\Sonata\\MediaBundle\\": ""
+            "Awaresoft\\Sonata\\MediaBundle\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
